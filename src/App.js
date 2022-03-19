@@ -7,36 +7,28 @@ class Person extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeIdx: -1,
       info: [
-        { name: 'Lily', details: '1 huba  dew', detailDisplay: false },
-        { name: 'Ben', details: 'Be yi ou', detailDisplay: false },
-        { name: 'Vic', details: 'poll the qa', detailDisplay: false },
-        { name: 'Chuck', details: 'Feel tier', detailDisplay: false },
-        { name: 'Will', details: '5 Hi de Ne', detailDisplay: false },
+        { name: 'Lily', details: '1 huba  dew' },
+        { name: 'Ben', details: 'Be yi ou' },
+        { name: 'Vic', details: 'poll the qa' },
+        { name: 'Chuck', details: 'Feel tier' },
+        { name: 'Will', details: '5 Hi de Ne' },
       ],
     };
   }
 
   getDetails = (i) => {
-    const temp = this.state.info.slice();
-    temp[i].detailDisplay = true;
     this.setState({
-      info: temp,
+      activeIdx: i,
     });
-    setTimeout(() => {
-      const temp = this.state.info.slice();
-      temp[i].detailDisplay = false;
-      this.setState({
-        info: temp,
-      });
-    }, 500);
   };
 
   render() {
     return this.state.info.map((elem, i) => {
       return (
-        <li key={Math.random()} onClick={() => this.getDetails(i)}>
-          {elem.detailDisplay ? elem.details : elem.name}
+        <li key={i} onClick={() => this.getDetails(i)}>
+          {this.state.activeIdx === i ? elem.details : elem.name}
         </li>
       );
     });
